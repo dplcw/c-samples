@@ -1,0 +1,62 @@
+# c-samples
+Various c++ source samples for beginner
+
+//bubble sort with struct type
+
+#include "stdafx.h"
+#include <stdio.h>
+#define SIZE 5
+
+typedef struct student
+ { char name[20]; int Kor, Math, Eng, Average;}
+ STD;
+ 
+ void swap(STD * , STD * );
+ 
+ int main()
+ {
+      STD std[SIZE] = {
+          {"AAA",20,40,50 },
+          {"BBB",40,60,90 },
+          {"CCC",80,90,90 },
+          {"DDD",90,100,90 },
+          {"EEE",30,40,50 } };
+          
+      int a,b;
+      
+      for (a = 0; a < SIZE; a++)
+          {  
+             std[a].Average = (std[a].Kor + std[a].Math + std[a].Eng) / 3;
+             printf("Name : %s     AVR : %d\n", std[a].name, std[a].Average);
+          };
+          
+     for (a = 0; a < SIZE; a++ )
+        {  
+             for (b = 0; b < (SIZE-1) ; b++) 
+               { 
+                  if (std[b].Average < std[b + 1].Average)   
+                      {    swap(&std[b], &std[b + 1]);
+                      }
+                }
+         }
+         
+ printf("\n\n\n");
+ 
+       for (a = 0; a < SIZE; a++)
+         {
+            printf("Name : %s     AVR : %d\n", std[a].name, std[a].Average); 
+         }
+         
+ return 0;
+}
+
+
+void swap(STD *a, STD *b)
+{
+    STD temp;
+
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+               
