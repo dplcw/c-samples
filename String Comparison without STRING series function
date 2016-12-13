@@ -1,0 +1,88 @@
+#include "stdafx.h"
+
+int main()
+    { 
+         char str1[80]; char str2[10]; char str3[10];
+         int Length_str1, Length_str2, Length_str3;
+         int check = 0, count1 = 0, count2 = 0, found = 0; 
+         
+         printf("Input 1st String : ");
+         scanf("%s", str1);
+         
+         printf("Input 2nd String : ");
+         scanf("%s", str2);
+         
+         printf("Input 3rd String : ");
+         scanf("%s", str3);
+         
+         for (Length_str1 = 0; str1[Length_str1] != '\0'; Length_str1++);
+         for (Length_str2 = 0; str2[Length_str2] != '\0'; Length_str2++);
+         for (Length_str3 = 0; str3[Length_str3] != '\0'; Length_str3++); 
+         
+         printf("length str1 : %d \n", Length_str1);
+         printf("length str2 : %d \n", Length_str2);
+         printf("length str3 : %d \n", Length_str3);
+         
+         if (Length_str2 == Length_str3) 
+            {
+                for (Length_str1 = 0; str1[Length_str1] != '\0'; Length_str1++)
+                    {  
+                        check = 0;
+                        count2 = Length_str1;
+                        for (count1 = 0; count1< Length_str2; count1++)
+                           {
+                               if (str1[count2] == str2[count1])
+                                  {
+                                     check++;
+                                   }
+                                count2++;
+                            }
+                            
+                        // Same String found
+                        if (check == Length_str2)
+                           {
+                               if (found !=1)
+                                  { 
+                                      printf("Before : %s \n", str1);
+                                      printf("%swas found \n", str2);
+                                      found = 1;
+                                   }
+                            }
+                    };
+                    
+                    //if there was match case,
+                    if (found)
+                       { 
+                          for (Length_str1 = 0; str1[Length_str1] != '\0'; Length_str1++)
+                             {
+                                 check = 0;
+                                 count2 = Length_str1;
+                                 for (count1 = 0; count1< Length_str2; count1++)
+                                     {
+                                         if (str1[count2] == str2[count1])
+                                            {
+                                               check++;
+                                             }
+                                         count2++;
+                                      } 
+                                      
+                                  //replace str1 with str3
+                                 if (check == Length_str2)
+                                   {
+                                      count2 = Length_str1;
+                                      for (count1 = 0; count1 < Length_str3; count1++)
+                                         {
+                                             str1[count2] = str3[count1];
+                                             count2++;
+                                         }
+                                   }
+                             }
+                          printf("After  : %s \n", str1);
+                       }
+           }
+        else
+           { 
+               printf("Error!!. 2nd str and 3rd str are different.\n");
+            };
+ return 0;}
+}
