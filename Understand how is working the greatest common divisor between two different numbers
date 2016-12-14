@@ -1,0 +1,45 @@
+#include "stdafx.h"
+
+#define TRUE 1
+#define FALSE 0
+
+void swap(int *, int *);
+
+int main()
+   {
+      int a, b, remain;
+      int flag = TRUE;
+      
+      printf("input 1 : ");
+      scanf("%d", &a);
+      
+      printf("input 2 : ");
+      scanf("%d", &b);
+      
+      if (a < b) 
+        swap(&a, &b);
+        
+      while (flag) 
+         {  
+            remain = a%b;
+            a = b;
+            b = remain;
+            
+            if (b == 0)
+              flag = FALSE;
+         }
+         
+      printf("G.C.D is %d.\n", a);
+      
+      return 0;
+}
+
+void swap(int *a, int *b)
+   { 
+      int temp;
+      
+      temp = *a;
+      *a = *b;
+      *b = temp;
+   }
+      
