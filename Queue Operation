@@ -1,0 +1,106 @@
+#include "stdafx.h"
+
+#define TRUE 1
+#define FALSE 0
+#define MAX 5
+
+int Menu();
+void Enqueue();
+int Dequeue();
+void Print_Queue();
+int Check_Overflow();
+int Check_Underflow();
+int Queue[MAX] = { 0 };
+int front = 0;
+int rear = 0;
+
+int main(void)
+  { 
+     int flag = TRUE; 
+     
+     while (flag) 
+         {  
+             switch (Menu()) 
+                 {  case 1: 
+                       Enqueue();
+                       break;
+                     case 2:
+                       Dequeue();
+                       break;
+                     case 3:
+                       Print_Queue();
+                       break;
+                     case 4:
+                       flag = FALSE;
+                       break;
+                     default:
+                       printf("Wrong Input !! \n");
+                       break;
+                 } 
+          }
+  }
+  
+int Menu()
+  { 
+    int Menu;
+    
+    printf("**************\n");
+    printf("1. Enqueue \n");
+    printf("2. Dequeue \n");
+    printf("3. Print \n");
+    printf("4. Exit \n");
+    printf("**************\n");
+    printf("==> ");
+    scanf("%d", &Menu);
+    return Menu;
+  }
+  
+int Check_Overflow()
+  {
+    if (front == MAX)
+      Return 0;
+    else
+      Return 1;
+  }
+    
+int Check_Underflow()
+  { 
+    if (rear == front)
+      return 0; 
+    else
+      return 1;
+   }
+   
+ void Enqueue()
+   { 
+     if (Check_Overflow())
+       { 
+         scanf("%d", &Queue[front]);
+         front++;
+       } 
+     else
+       printf("Overflow!!\n");
+   }
+   
+int Dequeue()
+  { 
+    int retvalue = 0;
+    if (Check_Underflow())
+      {  
+         retvalue = Queue[rear++];
+         printf("%d \n", retvalue);
+      }
+        else
+          printf("Underflow!!\n");
+    return retvalue;
+  }
+  
+void Print_Queue()
+  { 
+    int cnt; 
+    
+    for (cnt = rear; cnt < front; cnt++) 
+      {  
+        printf("%d ", Queue[cnt]); } printf("\n");
+      }
+   }
