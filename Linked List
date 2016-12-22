@@ -1,0 +1,110 @@
+#include "stdafx.h"
+#include <stdlib.h>
+
+#define TRUE 1
+#define FALSE 0
+
+typedef struct node
+   { int data;
+     struct node *next;
+   }NODE;
+   
+void init_list();
+void print_list();
+void input_list(int);
+NODE *found_list(int);
+void delete_list(NODE *);
+
+NODE *head;
+NODE *tail;
+
+int main()
+  { 
+    init_list();
+    input_list(10);
+    input_list(50);
+    input_list(30);
+    input_list(20);
+    input_list(40);
+    
+    print_list();
+    
+    delete_list(found_list(30));
+    
+    print_list();
+    
+    return 0;
+  }
+  
+void print_list()
+  { 
+    NODE *temp;
+    
+    temp = head;
+    temp = temp->next;
+    printf("\n========================\n");
+    
+    while (temp->next != NULL)
+      {  
+         printf("%d ", temp->data);
+         temp = temp->next;
+       } 
+    printf("\n========================\n");
+  }
+  
+NODE *found_list(int indata)
+  { 
+    NODE *temp;
+    NODE *found;
+    int status = FALSE;
+    
+    temp = head;
+    while (temp->next != NULL)
+      { 
+        if (temp->data == indata)
+          {   
+            status = TRUE;
+            found = temp;
+            printf("\n>> found : %d ", found->data);
+          } 
+          temp = temp->next;
+      } 
+      return found;
+}
+
+void input_list(int indata)
+  { 
+    NODE *newnode;
+    
+    newnode = (NODE *)malloc(sizeof(NODE));
+    newnode->data = indata;
+    
+    newnode->next = head->next;
+    head->next = newnode;
+  }
+  
+void delete_list(NODE *innode)
+  { 
+    NODE *temp;
+    temp = head;
+    
+    while (temp->next != NULL)
+      { 
+        if (temp->next == innode)
+          {   
+            printf("\n>> delete : %d ", innode->data);
+            temp->next = innode->next;
+            free(innode);
+          }  
+        temp = temp->next;
+      }
+  }
+  
+void init_list()
+  { 
+     head = (NODE *)malloc(sizeof(node));
+     tail = (NODE *)malloc(sizeof(node));
+     
+     head->next = tail;
+     tail->next = NULL;
+  }
