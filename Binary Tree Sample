@@ -1,0 +1,95 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct _Node{
+   int value;
+   struct _Node *Left;
+   struct _Node *Right;
+}NODE;
+
+NODE *root;
+
+void init_Tree();
+void input_Tree(NODE *, int );
+void print_Tree(NODE *);
+void free_Tree(NODE *);
+
+int main(int argc, char *argv[])
+  {
+      int flag = 1;
+      int value;
+      
+      init_Tree();
+      
+      while(flag)
+        { 
+           printf("Input : ");
+           scanf("%d", &value);
+           
+           input_Tree(root,value);
+           print_Tree(root);
+           printf("\n");
+           if(value == 0)
+              flag = 0;
+        }
+        
+      free_Tree(root);
+  }
+  
+void init_Tree(int value)
+  { 
+     root = (NODE *)malloc(sizeof(NODE));
+     root->value = 100;
+     root->Left = NULL;
+     root->Right = NULL;
+  }
+  
+void input_Tree(NODE *temp, int value)
+  {
+     if (value < temp->value)
+       {
+         if (temp->Left!=NULL)
+           input_Tree(temp->Left,value);
+         else
+           {
+              temp->Left=(NODE *)malloc(sizeof(NODE));
+              temp->Left->value=value;
+              temp->Left->Left=NULL;
+              temp->Left->Right=NULL;
+            } 
+       }
+       
+     if (value > temp->value)
+       {
+         if (temp->Right!=NULL)
+           input_Tree(temp->Right,value);
+         else
+           {
+             temp->Right=(NODE *)malloc(sizeof(NODE));
+             temp->Right->value=value;
+             temp->Right->Left=NULL;
+             temp->Right->Right=NULL;
+           }
+       }
+}
+
+void print_Tree(NODE *temp)
+ {        
+      if(temp)
+        { 
+           print_Tree(temp->Left);
+           printf("%d ", temp->value);
+           print_Tree(temp->Right);
+        }
+ }
+ 
+void free_Tree(NODE *temp)
+  {      
+     if(temp)
+       {
+          free_Tree(temp->Left);
+          free(temp);
+          free_Tree(temp->Right);        
+       }
+  }
