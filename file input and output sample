@@ -1,0 +1,105 @@
+//There are two source as following.
+//The "writelist.c" is to write records as first step. It'll be stored with MEMBER struct type.
+//The 'readlist.c" is to read record from the file with MEMBER struct type.
+
+// Start "writelist.c"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+
+typedef struct MemberInfo{
+  char name[20];
+  int age;
+  int phone;
+}MEMBER;
+
+void input_Info(MEMBER *, char *, int, int);
+
+int main(void)
+{        
+  int fd_write;
+  int flag = 1;
+  char check;
+  char name[20];
+  int age;
+  int phone;
+  MEMBER userInfo;
+  
+  fd_write = open("aaa.txt", O_WRONLY | O_CREAT | O_APPEND, 0644);
+  while(flag)
+    {
+      printf("Input Name Age Phone: ");
+      scanf("%s %d %d", name, &age, &phone);
+      getchar();
+      input_Info((void *)&userInfo, name, age, phone);
+      write(fd_write, (void *)&userInfo, sizeof(userInfo));
+      printf("Continue [y/n]? : ");
+      scanf("%c", &check);
+      getchar();
+      if(check == 'n')
+        flag = 0;
+    }
+  close(fd_write);
+}
+
+void input_Info(MEMBER *info, char *name, int age, int phone)
+{ 
+  memset((void *)info, 0x00, sizeof(MEMBER));
+  strcpy(info->name, name);
+  info->age = age;
+  info->phone = phone;
+}
+
+// End "writelist.c"
+
+// Start "readlist.c"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+
+typedef struct MemberInfo{
+  char name[20];
+  int age;
+  int phone;
+}MEMBER;
+
+void input_Info(MEMBER *, char *, int *, int *);
+
+int main(void)
+{
+  int fd_read;
+  char name[20];
+  int age;
+  int phone;
+  MEMBER userInfo;
+  
+  fd_read = open("aaa.txt", O_RDONLY);
+  if (fd_read<0)
+    {
+      printf("File Open Error !! \n");
+      return 0;
+    }
+  memset((void *)&userInfo, 0x00, sizeof(MEMBER));
+  while(0 < read(fd_read, (void *)&userInfo, sizeof(userInfo)) )
+    {
+      input_Info((void *)&userInfo, name, &age, &phone);
+      printf("name : %s\n", name);
+      printf("age : %d\n", age);
+      printf("phone : %d\n", phone);
+    }
+  close(fd_read);
+}
+
+void input_Info(MEMBER *info, char *name, int *age, int *phone)
+{
+  strcpy(name, info->name);
+  *age = info->age;
+  *phone = info->phone;
+  memset((void *)info, 0x00, sizeof(MEMBER));
+}                                                                                                                           45,1          Bot
+
+// End "readlist.c"
